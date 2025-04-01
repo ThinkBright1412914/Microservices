@@ -1,3 +1,5 @@
+using AutoMapper;
+using Microservices.CouponAPI;
 using Microservices.CouponAPI.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +13,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+//builder.Services.Add(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
